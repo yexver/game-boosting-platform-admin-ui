@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 获取账户列表
 export function getAccountList(params) {
   return request({
-    url: '/server-user/account/list',
+    url: '/server-account/account/list',
     headers: {
       isToken: true,
       repeatSubmit: true,
@@ -16,7 +16,7 @@ export function getAccountList(params) {
 // 获取账户详情
 export function getAccountDetail(id) {
   return request({
-    url: `/server-user/account/${id}`,
+    url: `/server-account/account/${id}`,
     headers: {
       isToken: true,
       repeatSubmit: false,
@@ -28,7 +28,7 @@ export function getAccountDetail(id) {
 // 账户余额调整
 export function adjustAccountBalance(data) {
   return request({
-    url: '/server-user/account/adjust',
+    url: '/server-account/account/adjust',
     headers: {
       isToken: true,
       repeatSubmit: true,
@@ -41,7 +41,7 @@ export function adjustAccountBalance(data) {
 // 获取账户流水
 export function getAccountTransactions(userId, params) {
   return request({
-    url: `/server-user/account/${userId}/transactions`,
+    url: `/server-account/account/${userId}/transactions`,
     headers: {
       isToken: true,
       repeatSubmit: true,

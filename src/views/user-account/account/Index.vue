@@ -116,7 +116,7 @@ import {
   getAccountList,
   getAccountDetail,
   adjustAccountBalance,
-} from '@/api/user-account/account'
+} from '@/api/account/index'
 import { ElMessage } from 'element-plus'
 
 const searchForm = reactive({ userId: '', phone: '' })

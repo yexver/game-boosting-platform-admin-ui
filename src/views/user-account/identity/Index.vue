@@ -133,7 +133,7 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { getIdentityList } from '@/api/user-account/identity'
+import { getIdentityList } from '@/api/user/index'
 
 const searchForm = reactive({
   userId: '',

@@ -99,7 +99,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { getTransactionList } from '@/api/user-account/transaction'
+import { getTransactionList } from '@/api/account/transaction'
 
 const searchForm = reactive({
   userId: '', // 必填
