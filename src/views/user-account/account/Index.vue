@@ -90,9 +90,9 @@
         <el-form-item label="类型">
           <el-select v-model="adjustForm.type">
             <el-option label="充值" :value="1" />
-            <el-option label="解冻" :value="6" />
-            <el-option label="冻结" :value="7" />
-            <el-option label="扣款" :value="9" />
+            <el-option label="退款" :value="3" />
+            <el-option label="冻结资金" :value="20" />
+            <el-option label="解冻资金" :value="30" />
           </el-select>
         </el-form-item>
         <el-form-item label="金额">
