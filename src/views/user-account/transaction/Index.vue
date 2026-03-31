@@ -16,22 +16,26 @@
             style="width: 120px"
           >
             <el-option label="充值" :value="1" />
-            <el-option label="提现" :value="2" />
-            <el-option label="订单收入" :value="3" />
-            <el-option label="订单支出" :value="4" />
-            <el-option label="退款" :value="5" />
-            <el-option label="佣金" :value="6" />
-            <el-option label="罚款" :value="7" />
+            <el-option label="订单收入" :value="2" />
+            <el-option label="退款" :value="3" />
+            <el-option label="提现" :value="10" />
+            <el-option label="订单支出" :value="11" />
+            <el-option label="罚款" :value="12" />
+            <el-option label="冻结资金" :value="20" />
+            <el-option label="解冻资金" :value="30" />
+            <el-option label="解冻并扣除" :value="31" />
           </el-select>
         </el-form-item>
-        <el-form-item label="日期">
+        <el-form-item label="时间范围">
           <el-date-picker
             v-model="searchForm.dateRange"
-            type="daterange"
+            type="datetimerange"
             range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            format="YYYY-MM-DD HH:mm:ss"
             value-format="YYYY-MM-DD HH:mm:ss"
+            style="width: 400px"
           />
         </el-form-item>
         <el-form-item>
@@ -112,25 +116,14 @@ const total = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
 
-function formatDateTime(val) {
-  if (!val) return ''
-  // 兼容 Date 对象和字符串
-  const date = typeof val === 'string' ? new Date(val) : val
-  const pad = (n) => n.toString().padStart(2, '0')
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
-}
-
 function fetchList() {
   getTransactionList({
     userId: searchForm.userId || undefined,
     operatorId: searchForm.operatorId || undefined,
     type: searchForm.type,
-    startTime: searchForm.dateRange?.[0]
-      ? formatDateTime(new Date(searchForm.dateRange[0]))
-      : undefined,
-    endTime: searchForm.dateRange?.[1]
-      ? formatDateTime(new Date(searchForm.dateRange[1]))
-      : undefined,
+    // value-format 已为 yyyy-MM-dd HH:mm:ss 字符串，直接传给后端，避免 Date 时区偏移
+    startTime: searchForm.dateRange?.[0] || undefined,
+    endTime: searchForm.dateRange?.[1] || undefined,
     current: currentPage.value,
     size: pageSize.value,
   }).then((res) => {
@@ -164,15 +157,18 @@ function formatTime(row, column, cellValue) {
 
 function typeFormatter(row) {
   const map = {
+    // 收入类 (1-9)
     1: '充值',
-    2: '提现',
-    3: '订单收入',
-    4: '订单支出',
-    5: '退款',
-    6: '解冻',
-    7: '冻结',
-    8: '撤销订单',
-    9: '扣款',
+    2: '订单收入',
+    3: '退款',
+    // 支出类 (10-19)
+    10: '提现',
+    11: '订单支出',
+    12: '罚款',
+    // 冻结解冻类
+    20: '冻结资金',
+    30: '解冻资金',
+    31: '解冻并扣除',
   }
   return map[row.type] || row.type
 }
