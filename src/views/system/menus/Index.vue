@@ -46,6 +46,13 @@
         </el-table-column>
         <el-table-column prop="order_num" label="排序" width="60" />
         <el-table-column prop="permission" label="权限标识" />
+        <el-table-column prop="hidden" label="隐藏" width="80">
+          <template #default="{ row }">
+            <el-tag :type="row.hidden === 1 ? 'warning' : 'success'">
+              {{ row.hidden === 1 ? '是' : '否' }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="200">
           <template #default="{ row }">
             <el-button size="small" @click="handleAdd(row)"
@@ -142,6 +149,9 @@
         <el-form-item label="权限标识">
           <el-input v-model="form.permission" />
         </el-form-item>
+        <el-form-item label="是否隐藏">
+          <el-switch v-model="form.hidden" :active-value="1" :inactive-value="0" />
+        </el-form-item>
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -180,6 +190,7 @@ const form = ref({
   icon: '',
   order_num: 0,
   permission: '',
+  hidden: 0,
 })
 const formRef = ref(null)
 const dialogTitle = computed(() => (isEdit.value ? '编辑菜单' : '新增菜单'))
@@ -222,6 +233,7 @@ const handleAdd = (parent) => {
     icon: '',
     order_num: 0,
     permission: '',
+    hidden: 0,
   }
   dialogVisible.value = true
 }
