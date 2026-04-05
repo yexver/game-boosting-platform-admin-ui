@@ -114,7 +114,7 @@ function fetchList() {
   getOrderInfoList({
     orderNo: searchForm.orderNo || undefined,
     status: 8,
-    pageNum: currentPage.value,
+    page: currentPage.value,
     pageSize: pageSize.value,
   }).then((res) => {
     orderList.value = res.data?.list || []

@@ -449,7 +449,7 @@ function fetchList() {
     // 可根据实际业务调整异常订单的status范围
     status: 9,
     managerId: managerId || undefined,
-    pageNum: currentPage.value,
+    page: currentPage.value,
     pageSize: pageSize.value,
   }).then((res) => {
     orderList.value = res.data?.list || []
